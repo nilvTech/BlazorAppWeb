@@ -1,0 +1,58 @@
+﻿@page "/fetchdata"
+@using BlazorApp.Client.Shared
+@inject HttpClient Http
+
+<PageTitle>Add Employee Details</PageTitle>
+
+<h1>Add Employee</h1>
+
+@*<p>This page is developed using MatBlazor components.</p>*@
+<div></div>
+<div>Date Of Birth</div>
+ <p>
+        <MatDatePicker @bind-Value="@Date1"></MatDatePicker>
+ </p>
+    <MatButton OnClick="@(_ => { Date1 = DateTime.Now; })">
+        Set
+    </MatButton>
+    <MatButton OnClick="@(_ => { Date1 = null; })">
+            Empty
+    </MatButton>
+    <br /><br />
+        @*<span>@(Date1.HasValue ? Date1.Value.ToLocalTime().ToString() : "")</span>*@
+<p>Gender:</p>
+<MatRadioGroup @bind-Value="@gender" Items="@(Enum.GetValues(typeof(Gender)).Cast<Gender>())">
+</MatRadioGroup>
+<br />
+<p>Education:</p>
+<MatSelect Label="Select Degree" @bind-Value="value1">
+    <MatOptionString></MatOptionString>
+    <MatOptionString Value="engg">B.E/B.Tech</MatOptionString>
+    <MatOptionString Value="master">Masters Degree</MatOptionString>
+    <MatOptionString Value="bca">BCA</MatOptionString>
+    <MatOptionString Value="msc">MSC</MatOptionString>
+</MatSelect>
+
+
+@code {
+    public static string value1;
+    public DateTime? Date1 { get; set; } = DateTime.Now.AddDays(-10);
+    private WeatherForecast[]? forecasts;
+    protected string Val1;
+    List<string> list = new List<string>();
+
+    Gender gender;
+
+    enum Gender
+    {
+        None,
+        Male,
+        Female,
+        Other
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+}

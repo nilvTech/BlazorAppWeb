@@ -1,0 +1,134 @@
+﻿@page "/"
+@using BlazorApp.Client.Shared 
+@using Syncfusion.Blazor.Grids
+@using MatBlazor;
+
+@if (Employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <MatTable Items="@Employees" class="table mat-elevation-z5" AllowSelection="true" SelectionChanged="SelectionChangedEvent">
+        <MatTableHeader>
+                <th>ID</th>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+        </MatTableHeader>
+        <MatTableRow>
+
+            <td>@context.EmployeeId</td>
+            <td>@context.FirstName @context.LastName</td>
+            <td>@context.Email</td>
+            <td>@context.Phone</td>
+            <td>@context.Address</td>
+            
+        </MatTableRow>
+    </MatTable>
+    <p>@_currentSelectedTask</p>
+    <p>@_data</p>
+}
+
+@code {
+    private string _currentSelectedTask;
+    private string _data;
+    public void SelectionChangedEvent(object row)
+    {
+        if (row == null)
+        {
+            _currentSelectedTask = "";
+        }
+        else
+        {
+            _currentSelectedTask = string.Format(" Following Employee ID: {0}",
+            ((Employee)row).EmployeeId);
+            
+            _data = string.Format("Data: DateOfBirth:{0}   Gender:{1}",
+            ((Employee)row).DateOfBirth, ((Employee)row).Gender);
+        }
+
+        this.StateHasChanged();
+    }
+    public List<Employee> Employees { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Employees = LoadData();
+    }
+
+    private List<Employee> LoadData()
+    {
+        Employee e1 = new Employee
+            {
+                EmployeeId = 1,
+                FirstName = "John",
+                LastName = "Hastings",
+                Email = "David@DropBox.com",
+                Phone = "+1 202-918-2132",
+                Address = "221b Baker Street,albuquerque,USA ",
+                DateOfBirth = new DateTime(1980, 10, 5),
+                Gender = Gender.Male,
+                DepartmentId = 1,
+                PhotoPath = "images/john.png"
+            };
+
+        Employee e2 = new Employee
+            {
+                EmployeeId = 2,
+                FirstName = "Sam",
+                LastName = "Galloway",
+                Email = "Sam@DropBox.com",
+                DateOfBirth = new DateTime(1981, 12, 22),
+                Phone = "+1 578-456-695",
+                Address = "2218 Kurtis Street, Suite 828, 95726, New Abel, Alaska,USA",
+                Gender = Gender.Male,
+                DepartmentId = 2,
+                PhotoPath = "images/sam.jpg"
+            };
+
+        Employee e3 = new Employee
+            {
+                EmployeeId = 3,
+                FirstName = "Mary",
+                LastName = "Smith",
+                Email = "mary@DropBox.com",
+                DateOfBirth = new DateTime(1979, 11, 11),
+                Phone = "+1 578-512-635",
+                Address = "5461 Zelma Light, Suite 786, 51132, North Gavin, Connecticut, USA",
+                Gender = Gender.Female,
+                DepartmentId = 1,
+                PhotoPath = "images/mary.png"
+            };
+
+        Employee e4 = new Employee
+            {
+                EmployeeId = 4,
+                FirstName = "Sara",
+                LastName = "Longway",
+                Email = "sara@DropBox.com",
+                DateOfBirth = new DateTime(1982, 9, 23),
+                Phone = "+1 534-126-667",
+                Address = "076 Grayce Squares, Apt. 090, 78353, Gulgowskiside, Tennessee,USA ",
+                Gender = Gender.Female,
+                DepartmentId = 3,
+                PhotoPath = "images/sara.png"
+            };
+            Employee e5 = new Employee
+            {
+                EmployeeId = 5,
+                FirstName = "Annie",
+                LastName = "Leonheart",
+                Email = "AnnieLArmin@DropBox.com",
+                DateOfBirth = new DateTime(1982, 9, 23),
+                Phone = "+1 534-126-667",
+                Address = "076 Grayce Squares, Apt. 090, 78353, Gulgowskiside, Tennessee,USA ",
+                Gender = Gender.Female,
+                DepartmentId = 3,
+                PhotoPath = "images/sara5.png"
+            };
+
+        return new List<Employee> { e1, e2, e3, e4,e5 };
+    }
+}
