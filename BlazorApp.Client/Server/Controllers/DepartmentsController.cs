@@ -20,12 +20,25 @@ namespace BlazorApp.Client.Server.Controllers
         {
             try
             {
-                return Ok(await departmentRepository.GetDepartments());
+                // Fetching the departments
+                var departments = await departmentRepository.GetDepartments();
+
+                // Check if departments data is empty or null
+                if (departments == null || !departments.Any())
+                {
+                    return NotFound("No departments found.");
+                }
+
+                // Returning the fetched data
+                return Ok(departments);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Log the exception details (use a logger)
+                // e.g., _logger.LogError(ex, "Error occurred in GetDepartments");
+
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error retrieving data from the database: {ex.Message}");
             }
         }
 
