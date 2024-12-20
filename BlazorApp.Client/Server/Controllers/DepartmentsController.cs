@@ -23,14 +23,10 @@ namespace BlazorApp.Client.Server.Controllers
                 // Fetching the departments
                 var departments = await departmentRepository.GetDepartments();
 
-                // Check if departments data is empty or null
-                if (departments == null || !departments.Any())
-                {
-                    return NotFound("No departments found.");
-                }
-
-                // Returning the fetched data
-                return Ok(departments);
+                // Return a 404 response if no departments are found
+                return departments?.Any() == true
+                    ? Ok(departments)
+                    : NotFound("No departments found.");
             }
             catch (Exception ex)
             {
