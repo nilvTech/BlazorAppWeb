@@ -1,14 +1,16 @@
-﻿@page "/counter"
+@page "/counter"
 
 <PageTitle>Material Design Card</PageTitle>
 
-<h1>Card</h1>
+<h1>Material Card</h1>
 
-<style>
-</style>
-@*<MatCard class="demo-mat-card">
+<MatCard class="demo-mat-card">
     <MatCardContent>
-        <MatCardMedia Wide="false" Style="height:200px" ImageUrl="https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg"></MatCardMedia>
+        <MatCardMedia 
+            Wide="false" 
+            Style="height:200px" 
+            ImageUrl="https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg" />
+        
         <div class="demo-mat-card-content">
             <MatHeadline6 class="demo-mat-card-clean-margin">
                 Our Changing Planet
@@ -22,6 +24,7 @@
             Visit ten places on our planet that are undergoing the biggest changes today.
         </MatBody2>
     </MatCardContent>
+
     <MatCardActions>
         <MatCardActionButtons>
             <MatButton>Read</MatButton>
@@ -29,8 +32,8 @@
         </MatCardActionButtons>
 
         <MatCardActionIcons>
-            <MatIconButton Icon="@MatIconNames.Favorite"></MatIconButton>
-            <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
+            <MatIconButton Icon="@MatIconNames.Favorite" />
+            <MatIconButton Icon="@MatIconNames.Dashboard" />
         </MatCardActionIcons>
     </MatCardActions>
-</MatCard>*@
+</MatCard>
